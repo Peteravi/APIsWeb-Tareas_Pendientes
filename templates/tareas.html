@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tareas</title>
+    <!-- Estilos CSS -->
+    <style>
+       body {
+            font-family: 'Arial', sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        div {
+            background-color: #fff;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 8px 12px;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .delete-btn {
+            background-color: #dc3545;
+        }
+
+        .delete-btn:hover {
+            background-color: #c82333;
+        }
+
+        hr {
+            border: 1px solid #ddd;
+            margin: 15px 0;
+        }
+
+        .icon {
+            margin-right: 5px;
+        }
+    </style>
+  
+</head>
+
+<body>
+    <h1>Listado de Tareas</h1>
+
+    <!-- Formulario para agregar nueva tarea -->
+    <form action="/agregar_tarea" method="POST">
+        <label for="descripcion">Descripción:</label>
+        <input type="text" id="descripcion" name="descripcion" required>
+
+        <label for="fecha_vencimiento">Fecha de Vencimiento:</label>
+        <input type="datetime-local" id="fecha_vencimiento" name="fecha_vencimiento">
+
+        <button type="submit">Agregar Nueva Tarea</button>
+    </form>
+
+    {% for tarea in tareas %}
+    <div>
+        <p>Descripción: {{ tarea.descripcion }}</p>
+        <p>Fecha de Creación: {{ tarea.fecha_creacion }}</p>
+        <p>Fecha de Vencimiento: {{ tarea.fecha_vencimiento }}</p>
+        <p>Completada: {{ tarea.completada }}</p>
+
+        <!-- Formulario para eliminar tarea -->
+        <form action="/eliminar_tarea" method="POST">
+            <input type="hidden" name="id" value="{{ tarea._id }}">
+            <button type="submit">Eliminar</button>
+        </form>
+        <!-- Puedes agregar más botones o formularios para actualizar aquí -->
+        <hr>
+    </div>
+    {% endfor %}
+</body>
+
+</html>
